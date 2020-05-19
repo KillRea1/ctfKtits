@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="css/style1.css">
+
+<head>
+	<title>TaskBoard</title>
+</head>
+<body>
+<style>
+html,body{margin:0;padding:0}
+body{font: 76% arial,sans-serif;font-family:"Share Tech Mono", monospace;}
+p{margin:0 10px 10px;font-family:"Share Tech Mono", monospace;}
+@import url("https://fonts.googleapis.com/css?family=Share+Tech+Mono");
+a{display:block;color: #981793;padding:10px;font-family:"Share Tech Mono", monospace;}
+div#header h1{height:80px;line-height:80px;margin:0;
+  padding-left:10px;background: #2e2e2e;color: #79B30B}
+div#content p{line-height:1.4}
+div#navigation{background:#B9CAFF}
+div#extra{background:#FF8539}
+div#footer{background: #333;color: #FFF}
+div#footer p{margin:0;padding:5px 10px}
+div#footer a{display:inline;padding:0;color: #C6D5FD}
+div#wrapper{float:left;width:100%}
+div#content{margin: 0 33%}
+div#navigation{float:left;width:33%;margin-left:-33%}
+div#extra{float:left;width:33%;margin-left:-100%}
+div#footer{clear:left;width:100%}
+</style>
+</head>
+<body>
+<div id="container">
+<div id="header"><h1>Live LiderBoard</h1></div>
+<div id="wrapper">
+<div id="content">
+
+<main>
+  <h1>Ettrics</h1>
+  <p>Google Now inspired info cards.</p>
+</main>
+<style type="text/css">
+$color1: #5271C2;
+$color2: #35a541;
+$color3: #bdb235;
+$color4: #db6623;
+$color5: #3e5eb3;
+$color6: #aa9e5c;
+
+@function longshadow($color_a,$color_b,$stepnum, $opacity: 1){
+  $gradient_steps: null;
+  @for $i from 1 through $stepnum {
+    $weight: ( ( $i - 1 ) / $stepnum ) * 100;
+    $colour_mix: mix($color_b, rgba($color_a, $opacity), $weight);
+    $seperator: null;
+    @if($i != $stepnum){ 
+      $seperator: #{','}; 
+    }
+    $gradient_steps: append( #{$gradient_steps}, #{$i}px #{$i}px $colour_mix $seperator );
+ }
+  @return $gradient_steps;
+}
+
+@mixin easeOut {
+  transition: all .6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column wrap;
+  background: lighten(black, 12);
+  color: white;
+  font-family: 'Lato';
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 15px;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+.card {
+  float: left;
+  position: relative;
+  width: calc(100% * .3333 - 30px + .3333 * 30px);
+  height: 340px;
+  margin: 0 30px 30px 0;
+  perspective: 1000;
+  
+  &:first-child {
+    .card__front {
+      background: $color1;
+    }
+    .card__num {
+      text-shadow: longshadow(darken($color1, 15%),$color1,100, 0.8);
+    }
+  }
+  
+  &:nth-child(2) {
+     .card__front {
+      background: $color2;
+    }
+    .card__num {
+      text-shadow: longshadow(darken($color2, 15%),$color2,100, 0.8);
+    }
+  }
+  
+  &:nth-child(3) {
+    margin-right: 0;
+     .card__front {
+      background: $color3;
+    }
+    .card__num {
+      text-shadow: longshadow(darken($color3, 15%),$color3,100, 0.8);
+    }
+  }
+  
+  &:nth-child(4) {
+     .card__front {
+      background: $color4;
+    }
+    .card__num {
+      text-shadow: longshadow(darken($color4, 15%),$color4,100, 0.8);
+    }
+  }
+  
+  &:nth-child(5) {
+     .card__front {
+      background: $color5;
+    }
+    .card__num {
+      text-shadow: longshadow(darken($color5, 15%),$color5,100, 0.8);
+    }
+  }
+  
+  &:nth-child(6) {
+     .card__front {
+      background: $color6;
+    }
+    .card__num {
+      text-shadow: longshadow(darken($color6, 15%),$color6,100, 0.8);
+    }
+  }
+  
+  &:last-child {
+    margin-right: 0;
+  }
+  
+  &__flipper {
+    cursor: pointer;
+    transform-style: preserve-3d;
+    @include easeOut;
+  }
+  
+  &__front,
+  &__back {
+    position: absolute;
+    backface-visibility: hidden;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 340px;
+  }
+  
+  &__front {
+    transform: rotateY(0);
+    z-index: 2;
+    overflow: hidden;
+  }
+  
+  &__back {
+    transform: rotateY(180deg) scale(1.1);
+    background: lighten(black, 8);
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(black, 0.3);
+    
+    span {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  
+  &__name {
+    font-size: 32px;
+    line-height: 0.9;
+    font-weight: 700;
+    
+    span {
+      font-size: 14px;
+    }
+  }
+  
+  &__num {
+    font-size: 100px;
+    margin: 0 8px 0 0;
+    font-weight: 700;
+    
+    @media (max-width: 700px) {
+      font-size: 70px;
+    }
+  }
+  
+  @media (max-width: 700px) {
+    width: 100%;
+    height: 290px;
+    margin-right: 0;
+    float: none;
+    
+    .card__front,
+    .card__back {
+      height: 290px;
+    }
+  }
+}
+
+/* Demo */
+main {
+  text-align: center;
+  
+  h1, p {
+    margin: 0 0 12px 0;
+  }
+
+  h1 {
+    margin-top: 12px;
+    font-weight: 300;
+  }
+}
+
+.fa-twitter {
+  color: white;
+  font-size: 30px;
+}
+</style>
+<script type="text/javascript">
+  var Flipper = (function() {
+  var card = $('.card');
+  var flipper = card.find('.card__flipper');
+  var win = $(window);
+  
+  var flip = function() {
+    var thisCard = $(this);
+    var thisFlipper = thisCard.find('.card__flipper');
+    var offset = thisCard.offset();
+    var xc = win.width() / 2;
+    var yc = win.height() / 2;
+    var docScroll = $(document).scrollTop();
+    var cardW = thisCard.outerWidth() / 2;
+    var cardH = thisCard.height() / 2;
+
+    var transX = xc - offset.left - cardW;
+    var transY = docScroll + yc - offset.top - cardH;
+//     if (offset.top > card.height()) transY = docScroll - offset.top + cardH;
+    if (win.width() <= 700) transY = 0;
+    
+    if (card.hasClass('active')) unflip();
+        
+    thisCard.css({'z-index': '3'}).addClass('active');
+    
+    thisFlipper.css({
+      'transform': 'translate3d(' + transX + 'px,' + transY + 'px, 0) rotateY(180deg) scale(1)',
+      '-webkit-transform': 'translate3d(' + transX + 'px,' + transY + 'px, 0) rotateY(180deg) scale(1)',
+      '-ms-transform': 'translate3d(' + transX + 'px,' + transY + 'px, 0) rotateY(180deg) scale(1)'
+    }).addClass('active');
+    
+    return false;
+  };
+  
+  var unflip = function(e) {
+    card.css({'z-index': '1'}).removeClass('active');
+    flipper.css({
+      'transform': 'none',
+      '-webkit-transform': 'none',
+      '-ms-transform': 'none'
+    }).removeClass('active');
+  };
+  
+  var bindActions = function() {
+    card.on('click', flip);
+    win.on('click', unflip);
+  }
+  
+  var init = function() {
+    bindActions();
+  };
+  
+  return {
+    init: init
+  };
+  
+}());
+
+Flipper.init();</script>
+<ul>
+  <li class="card">
+    <div class="card__flipper">
+      <div class="card__front">
+        <p class="card__name"><span>Tony</span><br>Romo</p>
+        <p class="card__num">9</p>
+      </div>
+      <div class="card__back">
+        <svg height="180" width="180">
+          <circle cx="90" cy="90" r="55" stroke="#514d9b" stroke-width="35"  />
+        </svg>
+        <span>113.2</span>
+      </div>
+    </div>
+  </li>
+  
+
+
+</div>
+</div>
+<div id="navigation">
+<p><strong>2) Новости.</strong>
+Как управлять человечеством?
+Конечно же, установить законы. А какими бывают законы?
+Строгими, справедливыми, вечными, а еще … нелепыми!
+Прочитайте эту интересную статью и узнайте, в каких странах
+действуют эти нелепые законы. Я также постаралась найти
+причину возникновения каждого нелепого закона.
+</p>
+</div>
+<div id="extra">
+<p><strong>3) Меню.</strong> Продолжаем узнавать интересные и невероятные факты.
+Тем, кто считает, что человеку свойственны пять чувств, спешу сказать, что их уже девять!
+Если вы интересуетесь интересными фактами о человеческом организме, то эта статья как раз для вас!
+Узнайте больше о себе и о своих органах чувств.</p>
+</div>
+<div id="footer"><p>BlogGood.ru</p></div>
+</div>
+
+
+
+
+
+
+
+</body>
+</html>
